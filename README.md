@@ -10,6 +10,19 @@ A Discord-like Android application with advanced voice modification features, in
 
 > **📲 Complete step-by-step guide with screenshots:** [PHONE_INSTALL.md](PHONE_INSTALL.md) (Available in English & Hindi)
 
+## 🎯 **NEW! How to Use the App After Installation**
+
+### 📖 **[Complete Usage Guide →](APP_USAGE.md)** (English & हिंदी)
+
+**Already installed the app but don't know how to use it?** Check out our comprehensive guide:
+- ✅ Step-by-step instructions for every feature
+- ✅ Quick start examples
+- ✅ Troubleshooting tips
+- ✅ Available in both English and Hindi
+- ✅ Pro tips and best practices
+
+👉 **[Read the Full Usage Guide](APP_USAGE.md)**
+
 1. **Download APK** (Choose one method):
    
    **Method 1: GitHub Releases (Recommended)**

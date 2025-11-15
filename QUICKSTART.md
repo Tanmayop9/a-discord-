@@ -2,6 +2,21 @@
 
 Get up and running with Discord Voice Mod in minutes!
 
+## 📱 For Phone Users (Non-Developers)
+
+**Just installed the app on your phone?** 
+
+👉 **[Go to Complete App Usage Guide →](APP_USAGE.md)**
+
+Our APP_USAGE.md guide is perfect for you with:
+- ✅ Simple step-by-step instructions
+- ✅ Visual descriptions of all features
+- ✅ Quick start examples
+- ✅ Troubleshooting help
+- ✅ Available in English & हिंदी
+
+---
+
 ## For Users
 
 ### Installation
