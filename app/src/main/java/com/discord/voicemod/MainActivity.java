@@ -3,10 +3,12 @@ package com.discord.voicemod;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -151,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         // Effect Spinner
         effectSpinner.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(android.widget.AdapterView<?> parent, android.view.View view, 
+            public void onItemSelected(android.widget.AdapterView<?> parent, View view, 
                                       int position, long id) {
                 if (voiceProcessor != null) {
                     VoiceProcessor.VoiceEffect effect = VoiceProcessor.VoiceEffect.values()[position];
