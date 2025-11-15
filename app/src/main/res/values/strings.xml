@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Discord Voice Mod</string>
+    <string name="loud_mic">Loud Mic</string>
+    <string name="voice_changer">Voice Changer</string>
+    <string name="pitch_shift">Pitch Shift</string>
+    <string name="amplification">Amplification</string>
+    <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
+    <string name="start_recording">Start Recording</string>
+    <string name="stop_recording">Stop Recording</string>
+    <string name="permission_required">Microphone permission required</string>
+    <string name="grant_permission">Grant Permission</string>
+    <string name="voice_effects">Voice Effects</string>
+    <string name="normal">Normal</string>
+    <string name="deep_voice">Deep Voice</string>
+    <string name="high_voice">High Voice</string>
+    <string name="robot">Robot</string>
+    <string name="echo">Echo</string>
+    <string name="reverb">Reverb</string>
+    <string name="volume">Volume</string>
+    <string name="apply">Apply</string>
+</resources>
