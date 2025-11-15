@@ -30,6 +30,11 @@ This project is now a fully functional Android application with voice modificati
 ✅ **Loud Mic** - Boost volume up to 3x
 ✅ **Voice Changer** - 6 different effects
 ✅ **Pitch Shifter** - Change voice pitch
+✅ **Noise Suppression** - Remove background noise (NEW!)
+✅ **Voice Activity Detection** - Auto-detect speaking (NEW!)
+✅ **Audio Visualizer** - Real-time audio display (NEW!)
+✅ **Voice Presets** - Save & load configurations (NEW!)
+✅ **Background Service** - Continue effects in background (NEW!)
 ✅ **Real-time** - No delay in processing
 ✅ **Easy to Use** - Simple interface
 
@@ -43,6 +48,11 @@ This project is now a fully functional Android application with voice modificati
 
 ### Technical Features
 ✅ Real-time audio processing at 44.1kHz
+✅ Noise suppression with adjustable threshold
+✅ Voice activity detection (VAD)
+✅ Audio visualization widget
+✅ Voice preset management system
+✅ Background foreground service
 ✅ Material Design UI with Discord theme
 ✅ Proper permission handling
 ✅ Low latency processing

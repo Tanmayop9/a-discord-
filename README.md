@@ -60,6 +60,36 @@ A Discord-like Android application with advanced voice modification features, in
 - **Pitch Shifting**: Continuously adjust pitch from 0.5x to 2.0x
 - **Real-time Processing**: All effects applied in real-time
 
+### 🔇 Noise Suppression
+- **Intelligent Noise Gate**: Automatically removes background noise
+- **Adjustable Threshold**: Fine-tune noise detection sensitivity
+- **Clean Audio**: Remove keyboard sounds, fans, and ambient noise
+- **Real-time Processing**: No perceptible delay
+
+### 🎙️ Voice Activity Detection (VAD)
+- **Automatic Detection**: Detects when you're speaking using energy analysis
+- **Visual Feedback**: Real-time status indicator (Speaking/Silent/Idle)
+- **Auto-Mute**: Automatically mutes when silent
+- **Privacy Protection**: Only transmits audio when voice is detected
+
+### 📊 Audio Visualization
+- **Real-time Display**: Shows current microphone input levels
+- **Visual Feedback**: See when audio is being processed
+- **Discord-themed**: Matches the app's aesthetic
+- **Amplitude Bar**: Visual representation of audio energy
+
+### 💾 Voice Presets
+- **Save Configurations**: Store your favorite voice settings
+- **Quick Switching**: Instantly load saved presets
+- **Persistent Storage**: Presets saved across app restarts
+- **Easy Management**: Create, load, and delete presets
+
+### 🔄 Background Service
+- **Persistent Processing**: Continue voice effects when app is backgrounded
+- **Foreground Service**: Reliable processing with notification controls
+- **Multi-tasking**: Use other apps while voice effects remain active
+- **Battery Optimized**: Efficient power usage
+
 ## Technical Details
 
 ### Audio Processing
@@ -74,7 +104,10 @@ app/
 ├── src/main/
 │   ├── java/com/discord/voicemod/
 │   │   ├── MainActivity.java          # Main UI controller
-│   │   └── VoiceProcessor.java        # Audio processing engine
+│   │   ├── VoiceProcessor.java        # Audio processing engine
+│   │   ├── VoiceService.java          # Background service
+│   │   ├── VoicePreset.java           # Preset management
+│   │   └── AudioVisualizer.java       # Audio visualization widget
 │   ├── res/
 │   │   ├── layout/
 │   │   │   └── activity_main.xml      # Main UI layout
@@ -140,8 +173,13 @@ app/
    - Select an effect from the dropdown menu
    - Adjust pitch shift slider for custom pitch
    - Toggle the "Enable" switch
-4. **Start Processing**: Tap "Start Recording" to begin real-time voice processing
-5. **Stop Processing**: Tap "Stop Recording" to end voice processing
+4. **Enable Advanced Features**:
+   - Toggle "Noise Suppression" to remove background noise
+   - Toggle "Voice Activity Detection" for automatic muting when silent
+   - Monitor the audio visualizer for real-time feedback
+5. **Start Processing**: Tap "Start Recording" to begin real-time voice processing
+6. **Stop Processing**: Tap "Stop Recording" to end voice processing
+7. **Save Presets** (coming soon): Save your favorite configurations for quick access
 
 ## Voice Effects Explained
 
@@ -174,12 +212,18 @@ This is an independent project and is not affiliated with Discord Inc. Use respo
 ## Future Enhancements
 
 - [ ] Network voice streaming
-- [ ] Recording and playback
+- [ ] Recording and playback to files
 - [ ] More advanced voice effects (vocoder, autotune)
-- [ ] Noise suppression and echo cancellation
-- [ ] Custom effect presets
-- [ ] Background service for persistent processing
+- [x] Noise suppression (COMPLETED)
+- [ ] Advanced echo cancellation
+- [x] Voice effect presets (COMPLETED)
+- [x] Background service for persistent processing (COMPLETED)
+- [x] Voice Activity Detection (COMPLETED)
+- [x] Audio visualization (COMPLETED)
 - [ ] Integration with Discord voice channels
+- [ ] Preset sharing and import/export
+- [ ] Advanced equalizer
+- [ ] Voice morphing AI effects
 
 ## Contributing
 
