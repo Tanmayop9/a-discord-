@@ -73,7 +73,106 @@ Transform your voice with various effects and pitch modifications.
 - **Real-time Application**: Instant feedback
 - **Works With All Effects**: Combine with other effects for unique sounds
 
-### 3. Real-time Processing
+### 3. Noise Suppression
+
+Advanced noise suppression to remove background noise from your audio.
+
+**Key Capabilities:**
+- **Noise Gate**: Intelligently removes low-level background noise
+- **Adjustable Threshold**: Customizable noise detection sensitivity
+- **Real-time Processing**: No perceptible delay
+- **Preserves Voice Quality**: Only removes unwanted noise
+
+**Use Cases:**
+- Remove keyboard typing sounds
+- Eliminate fan or air conditioning noise
+- Clean up audio in noisy environments
+- Professional-quality voice chat
+
+**Technical Details:**
+- Energy-based noise detection
+- Configurable threshold levels
+- Works in combination with other effects
+
+### 4. Voice Activity Detection (VAD)
+
+Automatically detect when you're speaking and mute when you're silent.
+
+**Key Capabilities:**
+- **Automatic Muting**: Only transmits audio when voice is detected
+- **Visual Feedback**: Real-time status indicator (Speaking/Silent)
+- **Energy-based Detection**: Uses RMS (Root Mean Square) analysis
+- **Low Latency**: Fast response time
+
+**Use Cases:**
+- Reduce bandwidth usage
+- Automatic push-to-talk alternative
+- Privacy protection when not speaking
+- Cleaner voice communication
+
+**Technical Implementation:**
+```java
+// Calculate RMS energy
+double rms = Math.sqrt((double) sum / length);
+// Voice is active if RMS exceeds threshold
+isVoiceActive = rms > vadThreshold;
+```
+
+### 5. Audio Visualization
+
+Real-time visual feedback of your audio levels.
+
+**Key Capabilities:**
+- **Real-time Display**: Shows current audio amplitude
+- **Visual Feedback**: See when you're speaking
+- **Discord-themed Design**: Matches the app aesthetic
+- **Low Overhead**: Minimal performance impact
+
+**Use Cases:**
+- Monitor microphone input levels
+- Visual confirmation of voice activity
+- Adjust settings based on visual feedback
+- Ensure audio is being processed
+
+### 6. Voice Effect Presets
+
+Save and load your favorite voice configurations.
+
+**Key Capabilities:**
+- **Save Presets**: Store complete voice configurations
+- **Load Presets**: Quickly switch between saved settings
+- **Persistent Storage**: Presets saved across app restarts
+- **JSON-based**: Easy to backup and share
+
+**Preset Includes:**
+- Amplification level
+- Pitch shift value
+- Selected voice effect
+- Feature toggles (Loud Mic, Voice Changer, Noise Suppression, VAD)
+
+**Use Cases:**
+- Quick switching between different voice profiles
+- Save favorite configurations for different games
+- Share presets with friends
+- Experiment without losing good settings
+
+### 7. Background Service
+
+Continue voice processing even when the app is in the background.
+
+**Key Capabilities:**
+- **Foreground Service**: Persistent voice processing
+- **Notification Control**: Quick access from notification tray
+- **Battery Optimized**: Efficient power usage
+- **Reliable**: Won't be killed by system
+
+**Use Cases:**
+- Use voice effects while gaming
+- Switch between apps without losing voice processing
+- Long voice chat sessions
+- Multi-tasking while maintaining voice effects
+
+### 8. Real-time Processing
 
 All audio processing happens in real-time with minimal latency.
 

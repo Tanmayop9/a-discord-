@@ -20,4 +20,15 @@
     <string name="reverb">Reverb</string>
     <string name="volume">Volume</string>
     <string name="apply">Apply</string>
+    <string name="advanced_features">Advanced Features</string>
+    <string name="noise_suppression">Noise Suppression</string>
+    <string name="voice_activity_detection">Voice Activity Detection</string>
+    <string name="vad_status_idle">VAD Status: Idle</string>
+    <string name="vad_status_speaking">VAD Status: Speaking</string>
+    <string name="vad_status_silent">VAD Status: Silent</string>
+    <string name="save_preset">Save Preset</string>
+    <string name="load_preset">Load Preset</string>
+    <string name="preset_name">Preset Name</string>
+    <string name="preset_saved">Preset saved successfully</string>
+    <string name="preset_loaded">Preset loaded successfully</string>
 </resources>
