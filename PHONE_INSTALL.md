@@ -186,3 +186,18 @@
 Now you can use voice effects on your phone without any PC!
 
 अब आप बिना PC के अपने phone पर voice effects use कर सकते हैं!
+
+---
+
+## 📖 Next Step: Learn How to Use the App!
+
+### 🎯 **[Complete App Usage Guide →](APP_USAGE.md)**
+
+**Installed the app? Great! Now learn how to use all its features:**
+- Step-by-step instructions for each feature
+- Quick start examples
+- Tips and best practices
+- Troubleshooting guide
+- Available in English & हिंदी
+
+👉 **[Read Full Usage Guide / पूरी उपयोग गाइड पढ़ें](APP_USAGE.md)**
