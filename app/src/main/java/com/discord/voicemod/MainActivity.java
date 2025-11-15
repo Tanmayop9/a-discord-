@@ -30,10 +30,18 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar pitchSeekBar;
     private SwitchMaterial loudMicSwitch;
     private SwitchMaterial voiceChangerSwitch;
+    private SwitchMaterial noiseSuppressionSwitch;
+    private SwitchMaterial vadSwitch;
     private Spinner effectSpinner;
     private Button recordButton;
+    private TextView vadStatusText;
+    private AudioVisualizer audioVisualizer;
     
     private boolean isProcessing = false;
+    
+    // Background update thread for VAD status and visualizer
+    private Thread updateThread;
+    private boolean isUpdating = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +61,12 @@ public class MainActivity extends AppCompatActivity {
         pitchSeekBar = findViewById(R.id.pitchSeekBar);
         loudMicSwitch = findViewById(R.id.loudMicSwitch);
         voiceChangerSwitch = findViewById(R.id.voiceChangerSwitch);
+        noiseSuppressionSwitch = findViewById(R.id.noiseSuppressionSwitch);
+        vadSwitch = findViewById(R.id.vadSwitch);
         effectSpinner = findViewById(R.id.effectSpinner);
         recordButton = findViewById(R.id.recordButton);
+        vadStatusText = findViewById(R.id.vadStatusText);
+        audioVisualizer = findViewById(R.id.audioVisualizer);
         
         // Setup effect spinner
         String[] effects = {
@@ -151,6 +163,26 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(android.widget.AdapterView<?> parent) {}
         });
         
+        // Noise Suppression Switch
+        noiseSuppressionSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (voiceProcessor != null) {
+                voiceProcessor.setNoiseSuppressionEnabled(isChecked);
+                Toast.makeText(this, 
+                    "Noise Suppression " + (isChecked ? "Enabled" : "Disabled"), 
+                    Toast.LENGTH_SHORT).show();
+            }
+        });
+        
+        // VAD Switch
+        vadSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (voiceProcessor != null) {
+                voiceProcessor.setVoiceActivityDetectionEnabled(isChecked);
+                Toast.makeText(this, 
+                    "Voice Activity Detection " + (isChecked ? "Enabled" : "Disabled"), 
+                    Toast.LENGTH_SHORT).show();
+            }
+        });
+        
         // Record Button
         recordButton.setOnClickListener(v -> {
             if (hasPermissions()) {
@@ -175,6 +207,9 @@ public class MainActivity extends AppCompatActivity {
             isProcessing = true;
             recordButton.setText(R.string.stop_recording);
             Toast.makeText(this, "Voice processing started", Toast.LENGTH_SHORT).show();
+            
+            // Start update thread for VAD status and visualizer
+            startUpdateThread();
         }
     }
     
@@ -184,6 +219,58 @@ public class MainActivity extends AppCompatActivity {
             isProcessing = false;
             recordButton.setText(R.string.start_recording);
             Toast.makeText(this, "Voice processing stopped", Toast.LENGTH_SHORT).show();
+            
+            // Stop update thread
+            stopUpdateThread();
+        }
+    }
+    
+    private void startUpdateThread() {
+        isUpdating = true;
+        updateThread = new Thread(() -> {
+            while (isUpdating && voiceProcessor != null) {
+                try {
+                    final boolean voiceActive = voiceProcessor.isVoiceActive();
+                    final float amplitude = voiceProcessor.getCurrentAmplitude();
+                    
+                    runOnUiThread(() -> {
+                        // Update VAD status
+                        if (vadSwitch.isChecked()) {
+                            if (voiceActive) {
+                                vadStatusText.setText(R.string.vad_status_speaking);
+                                vadStatusText.setTextColor(0xFF43B581); // Green
+                            } else {
+                                vadStatusText.setText(R.string.vad_status_silent);
+                                vadStatusText.setTextColor(0xFFF04747); // Red
+                            }
+                        } else {
+                            vadStatusText.setText(R.string.vad_status_idle);
+                            vadStatusText.setTextColor(getColor(R.color.white));
+                        }
+                        
+                        // Update audio visualizer
+                        if (audioVisualizer != null) {
+                            audioVisualizer.updateAmplitude(amplitude);
+                        }
+                    });
+                    
+                    Thread.sleep(100); // Update 10 times per second
+                } catch (InterruptedException e) {
+                    break;
+                }
+            }
+        });
+        updateThread.start();
+    }
+    
+    private void stopUpdateThread() {
+        isUpdating = false;
+        if (updateThread != null) {
+            try {
+                updateThread.join(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
     

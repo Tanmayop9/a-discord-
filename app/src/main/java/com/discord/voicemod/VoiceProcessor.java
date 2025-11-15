@@ -27,6 +27,22 @@ public class VoiceProcessor {
     private boolean loudMicEnabled = false;
     private boolean voiceChangerEnabled = false;
     
+    // New features
+    private boolean noiseSuppressionEnabled = false;
+    private boolean voiceActivityDetectionEnabled = false;
+    private float noiseThreshold = 1000.0f; // Threshold for noise suppression
+    private float vadThreshold = 2000.0f; // Threshold for voice activity detection
+    private boolean isVoiceActive = false;
+    
+    // Recording feature
+    private boolean isRecordingToFile = false;
+    private java.util.List<short[]> recordedBuffers = new java.util.ArrayList<>();
+    
+    // Current audio buffer for visualization
+    private short[] currentBuffer;
+    private int currentBufferLength;
+    private final Object bufferLock = new Object();
+    
     public enum VoiceEffect {
         NORMAL,
         DEEP_VOICE,
@@ -127,6 +143,35 @@ public class VoiceProcessor {
     private short[] processAudio(short[] buffer, int length) {
         short[] processed = new short[length];
         System.arraycopy(buffer, 0, processed, 0, length);
+        
+        // Store current buffer for visualization
+        synchronized (bufferLock) {
+            currentBuffer = processed;
+            currentBufferLength = length;
+        }
+        
+        // Apply noise suppression first
+        if (noiseSuppressionEnabled) {
+            processed = applyNoiseSuppression(processed, length);
+        }
+        
+        // Apply voice activity detection
+        if (voiceActivityDetectionEnabled) {
+            detectVoiceActivity(processed, length);
+            // Mute if no voice detected
+            if (!isVoiceActive) {
+                for (int i = 0; i < length; i++) {
+                    processed[i] = 0;
+                }
+            }
+        }
+        
+        // Record to buffer if enabled
+        if (isRecordingToFile) {
+            short[] bufferCopy = new short[length];
+            System.arraycopy(processed, 0, bufferCopy, 0, length);
+            recordedBuffers.add(bufferCopy);
+        }
         
         // Apply loud mic (amplification)
         if (loudMicEnabled) {
@@ -263,6 +308,71 @@ public class VoiceProcessor {
         return buffer;
     }
     
+    /**
+     * Apply noise suppression using simple noise gate
+     */
+    private short[] applyNoiseSuppression(short[] buffer, int length) {
+        for (int i = 0; i < length; i++) {
+            // If sample is below noise threshold, suppress it
+            if (Math.abs(buffer[i]) < noiseThreshold) {
+                buffer[i] = 0;
+            }
+        }
+        return buffer;
+    }
+    
+    /**
+     * Detect voice activity using energy-based detection
+     */
+    private void detectVoiceActivity(short[] buffer, int length) {
+        // Calculate RMS (Root Mean Square) energy
+        long sum = 0;
+        for (int i = 0; i < length; i++) {
+            sum += buffer[i] * buffer[i];
+        }
+        double rms = Math.sqrt((double) sum / length);
+        
+        // Voice is active if RMS exceeds threshold
+        isVoiceActive = rms > vadThreshold;
+    }
+    
+    /**
+     * Start recording audio to memory
+     */
+    public void startRecording() {
+        isRecordingToFile = true;
+        recordedBuffers.clear();
+    }
+    
+    /**
+     * Stop recording and return recorded audio
+     */
+    public short[][] stopRecording() {
+        isRecordingToFile = false;
+        short[][] result = recordedBuffers.toArray(new short[0][]);
+        recordedBuffers.clear();
+        return result;
+    }
+    
+    /**
+     * Get current voice activity status
+     */
+    public boolean isVoiceActive() {
+        return isVoiceActive;
+    }
+    
+    /**
+     * Get current audio buffer for visualization
+     */
+    public float getCurrentAmplitude() {
+        synchronized (bufferLock) {
+            if (currentBuffer == null || currentBufferLength == 0) {
+                return 0f;
+            }
+            return AudioVisualizer.calculateAmplitude(currentBuffer, currentBufferLength);
+        }
+    }
+    
     // Setters
     public void setAmplificationLevel(float level) {
         this.amplificationLevel = level;
@@ -282,6 +392,22 @@ public class VoiceProcessor {
     
     public void setVoiceChangerEnabled(boolean enabled) {
         this.voiceChangerEnabled = enabled;
+    }
+    
+    public void setNoiseSuppressionEnabled(boolean enabled) {
+        this.noiseSuppressionEnabled = enabled;
+    }
+    
+    public void setVoiceActivityDetectionEnabled(boolean enabled) {
+        this.voiceActivityDetectionEnabled = enabled;
+    }
+    
+    public void setNoiseThreshold(float threshold) {
+        this.noiseThreshold = threshold;
+    }
+    
+    public void setVadThreshold(float threshold) {
+        this.vadThreshold = threshold;
     }
     
     public boolean isRecording() {
