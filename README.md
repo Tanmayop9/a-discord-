@@ -2,6 +2,44 @@
 
 A Discord-like Android application with advanced voice modification features, inspired by [Aliucord](https://github.com/Aliucord/Aliucord).
 
+## 📱 Easy Installation (No PC Required!)
+
+### 🇮🇳 **[हिंदी में देखें / See in Hindi →](PHONE_INSTALL.md)**
+
+### Direct Download & Install on Your Phone
+
+> **📲 Complete step-by-step guide with screenshots:** [PHONE_INSTALL.md](PHONE_INSTALL.md) (Available in English & Hindi)
+
+1. **Download APK** (Choose one method):
+   
+   **Method 1: GitHub Releases (Recommended)**
+   - Open this link on your phone: [Latest Release](https://github.com/Tanmayop9/a-discord-/releases/latest)
+   - Download the APK file directly to your phone
+   
+   **Method 2: GitHub Actions (Latest Build)**
+   - Go to [Actions](https://github.com/Tanmayop9/a-discord-/actions)
+   - Click on the latest successful workflow run
+   - Download the `app-debug` or `app-release` artifact
+   - Extract the ZIP to get the APK
+
+2. **Enable Unknown Sources**:
+   - Go to Settings → Security → Unknown Sources
+   - Or Settings → Apps → Special Access → Install unknown apps
+   - Enable for your browser/file manager
+
+3. **Install APK**:
+   - Open the downloaded APK file
+   - Tap "Install"
+   - Wait for installation to complete
+
+4. **Open & Use**:
+   - Find "Discord Voice Mod" in your app drawer
+   - Open the app
+   - Grant microphone permission when asked
+   - Start using voice effects!
+
+### ✨ No PC, No Android Studio, Just Install & Go!
+
 ## Features
 
 ### 🎤 Loud Mic
